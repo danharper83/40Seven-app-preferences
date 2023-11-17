@@ -10,8 +10,8 @@ var appSettingsPath = 'app-settings.json';
 module.exports = function(fs, path) {
 	
 	function get() {
-		return fs.exists(appSettingsPath)
-			.then(function() { return fs.readFile(appSettingsPath); })
+		return fs.promises.access(appSettingsPath, fs.constants.F_OK)
+			.then(function() { return fs.promises.readFile(appSettingsPath); })
 			.then(JSON.parse)
 			.then(validateFormat);
 	}
